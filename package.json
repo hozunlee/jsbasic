@@ -1,0 +1,29 @@
+{
+    "name": "jsbasic",
+    "version": "1.0.0",
+    "description": "js 기본기",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hozunlee/jsbasic.git"
+    },
+    "keywords": [
+        "js",
+        "node"
+    ],
+    "author": "Hojun",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hozunlee/jsbasic/issues"
+    },
+    "homepage": "https://github.com/hozunlee/jsbasic#readme",
+    "devDependencies": {
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "nodemon": "^2.0.18",
+        "prettier": "^2.7.1"
+    }
+}

@@ -5,12 +5,13 @@ const $text2 = document.getElementById("text2");
 
 const WEEKS = ["일", "월", "화", "수", "목", "금", "토"];
 
-const getNextWeek = (a) => {
+const getNextWeek = ((a) => {
     console.log(a);
     let widx = {};
     return function (id) {
         console.log(widx);
         if (widx[id] === undefined) {
+            //idxObj.hasOwnProperty(id) // 있는지 확인
             widx[id] = -1;
         }
         widx[id] += 1;
@@ -18,8 +19,40 @@ const getNextWeek = (a) => {
         console.log(id);
         return `${WEEKS[widx[id]]}요일`;
     };
-};
+})();
 // 순수함수를 짜기 위한 클로저 생성
+
+const getNextWeeks1 = (() => {
+    return ($sp) => {
+        const curr = $sp.innerText.trim().replace("요일", "");
+        console.log(curr);
+        let currIdx = WEEKS.indexOf(curr);
+        console.log(currIdx);
+        currIdx += 1;
+        if (currIdx >= WEEKS.length) currIdx = 0;
+        $sp.innerText = `${WEEKS[currIdx]}요일`;
+    };
+})();
+
+// 5번 caller 함수 짜보기
+
+let week = getNextWeek();
+
+function handleToDoClick(event) {
+    if (event.srcElement.id === "btn1") {
+        getNextWeeks1($text1); //2
+        // $text1.innerText = getNextWeeks1(event.srcElement.id); //4
+        console.log(btn1.innerText); //dom 사용
+        console.log(event.srcElement.id);
+    } else if (event.srcElement.id === "btn2") {
+        $text2.innerText = getNextWeek(event.srcElement.id); // dom 사용
+    }
+}
+
+window.addEventListener("load", () => {});
+
+$btn1.addEventListener("click", handleToDoClick);
+$btn2.addEventListener("click", handleToDoClick);
 
 //TODO 함수에 접속 할 때 다른 렉시컬환경을 만들자
 
@@ -126,25 +159,11 @@ const weekend = (sub) => {
     }
 };
 
-const week = getNextWeek();
-console.log(week);
+// console.log(week);
 const week2 = getNextWeek2();
 // const week3 = getNextWeek3();
 // const week4 = getNextWeek4();
 const week5 = getNextWeek5();
-
-function handleToDoClick(event) {
-    if (event.srcElement.id === "btn1") {
-        $text1.innerText = week(event.srcElement.id);
-        console.log(btn1.innerText); //dom 사용
-        console.log(event.srcElement.id);
-    } else if (event.srcElement.id === "btn2") {
-        $text2.innerText = week(event.srcElement.id); // dom 사용
-    }
-}
-
-$btn1.addEventListener("click", handleToDoClick);
-$btn2.addEventListener("click", handleToDoClick);
 
 // const getNextWeek2 = (() => {
 //     let widx = -1;

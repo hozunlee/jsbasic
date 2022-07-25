@@ -25,6 +25,8 @@ const assertReduce = (arr, f, initValue, expVal) => {
     );
 };
 
+// 여기서 문제가 생길 수 있는 건 마지막 initValue 값이다.
+// [null, undefined, 0, '' 4가지 테스트 케이스를 가지고 돌려보는 것도 좋다.]
 console.log(reduceEx([1, 2, 3], (a, b) => a + b, 0));
 console.log(reduceEx([3, 3, 3], (a, b) => a * b, 0)); // 0이면 통과!);
 

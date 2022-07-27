@@ -48,13 +48,16 @@
 //     return res, console.log(res);
 // };
 
+// 3
+
 const range = (startN, endN, stepN) => {
     res = [];
     let i = startN;
-    let end = endN ?? ((i = 1), startN);
-    let j = i;
+    const end = endN ?? ((i = 1), startN);
+    const j = i;
+    const step = stepN ?? (!endN || startN < endN ? 1 : -1);
 
-    let step = stepN ?? (!endN || startN < endN ? 1 : -1);
+    console.log(i, end, step);
 
     for (; j < end ? i <= end : i >= end; i += step) {
         res.push(i);

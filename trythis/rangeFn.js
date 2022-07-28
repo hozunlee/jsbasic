@@ -27,12 +27,14 @@
 
 // #2
 
-const range = (startN, endN, stepN) => {
+const range1 = (startN, endN, stepN) => {
     const res = [];
     let start = startN;
     const end = endN ?? ((start = 1), startN);
 
-    const step = stepN ?? (!endN || startN < endN ? 1 : -1);
+    const step = stepN ?? (!endN || startN <= endN ? 1 : -1);
+
+    console.log(start, end);
 
     if (startN > endN) {
         for (; start >= end; start += step) {
@@ -47,23 +49,25 @@ const range = (startN, endN, stepN) => {
     return res;
 };
 
+console.log(range1(5, 5));
+
 // #3
 
-// const range = (startN, endN, stepN) => {
-//     res = [];
-//     let i = startN;
-//     const end = endN ?? ((i = 1), startN);
-//     const j = i;
-//     const step = stepN ?? (!endN || startN < endN ? 1 : -1);
+const range = (startN, endN, stepN) => {
+    let start = startN;
+    const end = endN ?? ((start = 1), startN);
+    const step = stepN ?? (!endN || startN < endN ? 1 : -1);
 
-//     console.log(i, end, step);
+    const j = start;
+    console.log(start, end, step);
 
-//     for (; j < end ? i <= end : i >= end; i += step) {
-//         res.push(i);
-//     }
+    const res = [];
+    for (; j < end ? start <= end : start >= end; start += step) {
+        res.push(start);
+    }
 
-//     return res, console.log(res);
-// };
+    return res, console.log(res);
+};
 
 // range(1, 10, 2); // [1, 3, 5, 7, 9]
 // range(1, 10); // [1, 2, 3, 4,  5, 6, 7, 8, 9, 10]
@@ -85,6 +89,7 @@ const range = (startN, endN, stepN) => {
 // range(10, 1, -1); // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 // range(10, 1, -2); // [ 10, 8, 6, 4, 2 ]
 // range(5); // [1, 2, 3, 4, 5]
+console.log(range(5, 5));
 
 //TDD TEST 코드
 const assertRange = (expVal, startN, endN, stepN) => {
@@ -99,4 +104,4 @@ const assertRange = (expVal, startN, endN, stepN) => {
     console.log("true");
 };
 
-assertRange([1, 2, 3, 4, 5], 5);
+// assertRange([1, 2, 3, 4, 5], 5);

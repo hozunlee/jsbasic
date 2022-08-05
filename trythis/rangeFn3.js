@@ -1,12 +1,15 @@
 const range = (start, end, step) => {
     if ((start < end && step < 0) || (start > end && step > 0)) {
+        // if (start !== end && (end - start) * step < 0) return []
         return [];
+    } else if (step === 0) {
+        return [start];
     }
 
     const temp = start;
     end = end ?? (0 < start ? ((start = 1), temp) : start === 0 ? start : -1);
     // end = end ?? (start <= 0 ? 0 : ((start = 1), temp));
-    step = start !== end ? step ?? (start < end ? 1 : -1) : -1;
+    step = start !== end ? step ?? (start >= end ? -1 : 1) : -1;
 
     console.log(start, end, step);
     const res = [];
@@ -60,3 +63,4 @@ assertArray(range(2, 1, -5), [2]);
 assertArray(range(0, -1, -5), [0]);
 
 assertArray(range(5, 5, 0), [5]);
+assertArray(range(0, -1, 0), [0]);

@@ -30,12 +30,14 @@ me.sayHi();
 
 // 정적 메서드 호출
 Person.sayHello();
+console.log(me.sayHello());
+me1.sayHello();
 // me.sayHello(); // 정적 메서드는 인스턴스로 호출할수 없다.
 
 // 클래스도 호이스팅이 된다.
-// const Lee = "";
+const Lee = "";
 
-// {
-//     console.log(Lee);
-//     class Lee {}
-// } // error
+{
+    console.log(Lee);
+    class Lee {}
+} // error

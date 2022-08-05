@@ -1,16 +1,12 @@
-const range = (...args) => {
-    //object 값을 ...rest로 받자!
-    let [start, end, step] = args;
-
-    if (start === end) {
-        return [start], console.log([start]);
-    } else if ((start < end && step < 0) || (start > end && step > 0)) {
-        return [], console.log([]);
+const range = (start, end, step) => {
+    if ((start < end && step < 0) || (start > end && step > 0)) {
+        return [];
     }
+
     const temp = start;
     end = end ?? (0 < start ? ((start = 1), temp) : start === 0 ? start : -1);
     // end = end ?? (start <= 0 ? 0 : ((start = 1), temp));
-    step = step ?? (start < end ? 1 : -1);
+    step = start !== end ? step ?? (start < end ? 1 : -1) : -1;
 
     console.log(start, end, step);
     const res = [];
@@ -18,34 +14,49 @@ const range = (...args) => {
         res.push(i);
     }
 
-    return res, console.log(res);
+    return res;
 };
 
-range(0); // [0]
-return;
-range(1, 5, -1); // []
-range(5, 1, 1); // []
+const eqArray = (arr1, arr2) => {
+    if (arr1.length !== arr2.length) return false;
 
-// range(1, 10, 1); // [1, 2, 3, 4,  5, 6, 7, 8, 9, 10]
-// range(1, 10, 2); // [1, 3, 5, 7, 9]
-range(1, 10); // [1, 2, 3, 4,  5, 6, 7, 8, 9, 10]
-// range(10, 1); // [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-// range(10, 1, -2); // [10, 8, 6, 4, 2]
+    for (let i = 0; i < arr1.length; i += 1) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
 
-range(5); // [1, 2, 3, 4, 5]
-// range(100); // [1, 2, 3, 4, 5, …, 99, 100]
-range(-5); // [-5, -4, -3, -2, -1]
+    return true;
+};
 
-// range(5, 5); // [5]
-// range(5, 5, 0); // [5]
-// range(5, 5, -1); // [5]
-// range(0, 0, 5); // [0]
-// range(0, 0); // [0]
+const assertArray = (arr1, arr2) => {
+    if (eqArray(arr1, arr2)) {
+        console.log(arr1, "==>", "통과");
+    } else {
+        console.log(arr1, arr2, "불통");
+    }
+};
 
-// range(0, 5); // [0, 1, 2, 3, 4, 5]
-// range(0, -1); // [0, -1]
-// range(0, -3); // [0, -1, -2, -3]
-range(-3, 0); // [-3, -2, -1, 0]
-// range(1, 5, 6); // [1]
-// range(2, 1, -5); // [2]
-// range(0, -1, -5); // [0]
+assertArray([1, 2, 3], [1, 2, 3]);
+assertArray(range(0), [0]);
+assertArray(range(1, 5, -1), []);
+assertArray(range(5, 1, 1), []);
+assertArray(range(1, 10, 1), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+assertArray(range(1, 10, 2), [1, 3, 5, 7, 9]);
+assertArray(range(1, 10), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+assertArray(range(5), [1, 2, 3, 4, 5]);
+assertArray(
+    range(100),
+    Array.from({ length: 100 }, (_, i) => i + 1)
+);
+assertArray(range(-5), [-5, -4, -3, -2, -1]);
+assertArray(range(5, 5), [5]);
+assertArray(range(0, 0, 5), [0]);
+assertArray(range(0, 0), [0]);
+assertArray(range(0, 5), [0, 1, 2, 3, 4, 5]);
+assertArray(range(0, -1), [0, -1]);
+assertArray(range(0, -3), [0, -1, -2, -3]);
+assertArray(range(-3, 0), [-3, -2, -1, 0]);
+assertArray(range(1, 5, 6), [1]);
+assertArray(range(2, 1, -5), [2]);
+assertArray(range(0, -1, -5), [0]);
+
+assertArray(range(5, 5, 0), [5]);

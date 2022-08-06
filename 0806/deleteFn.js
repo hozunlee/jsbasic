@@ -10,6 +10,18 @@ const deleteArray = (arr, start, end) => {
     return newArr;
 };
 
+// index 값으로 구분하는것
+// const isValid  = index >= start || index < end
+
+// const deleteArray1 = (arr, start, end = arr.length) => {
+//     const isLeft = x => x >= start && x < end;
+//     return arr.filter((_, i) => !isLeft(i))
+// return arr.filter((_, i) => i < start || i >= end)
+
+// const isDeleteRange = x => x < start || x >= end
+// return arr.filter((_, i) => isDeleteRange(i))
+// };
+
 console.log("deleteArray(arr, 2) :>> ", deleteArray(arr, 2)); // [1, 2] // 인덱스 2부터  다 지워라
 console.log("deleteArray(arr, 0, 1) :>> ", deleteArray(arr, 0, 1)); // [2, 3, 4] // 인덱스 0, 1까지  다 지워라
 console.log("deleteArray(arr, 1, 3) :> ", deleteArray(arr, 1, 3)); // [1, 4] // 1부터 3미만 인덱스 삭제
@@ -24,16 +36,18 @@ const users = [
 
 const deleteObjectArray = (obj, idxKey, value) => {
     if (typeof idxKey === "number") {
-        const newArr = [];
-        for (let i = 0; i < idxKey; i += 1) {
-            const temp = obj[i];
-            newArr.push(temp);
-        }
-        return newArr;
+        const res = obj.filter((_, idx) => idx !== idxKey);
+        return res;
     } else {
         const delTarget = obj.find((item) => item[idxKey] === value);
         const newArr = obj.filter((item) => item !== delTarget);
         return newArr;
+        return arr.filter((obj) => obj[idxKey] !== value);
+
+        const isDeleteByIndex = typeof idxKey === "number";
+        return arr.filter((obj, i) =>
+            isDeleteByIndex ? i !== idxKey : obj[idxKey] !== value
+        );
     }
 };
 
@@ -48,3 +62,5 @@ console.log(
 ); // Hong, Kim // name이 Lee인놈을 지워라
 
 console.log("obj=>>>>>>> end");
+
+// = (!value && value !== 0) ? keyOrValue : onerror.findIndex(obj => obj[keyOrIndex] === value)

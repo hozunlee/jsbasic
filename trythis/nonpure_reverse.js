@@ -16,13 +16,13 @@ const a11 = [1, 2, 3, 4, 5];
 // };
 
 const reverseArray = (arr) => {
-    const arrLength = Math.floor(arr.length / 2);
+    const maxIdx = arr.length - 1;
 
-    for (let i = 0; i <= arrLength; i += 1) {
+    for (let i = 0; i <= parseInt(arr.length / 2); i += 1) {
         //# 1 temp 변수활용
         // const temp = arr[i];
-        // arr[i] = arr[arr.length - 1 - i];
-        // arr[arr.length - 1 - i] = temp;
+        // arr[i] = arr[maxIdx - i];
+        // arr[maxIdx - i] = temp;
 
         //# 2 구조 분해 할당
         [arr[arr.length - 1 - i], arr[i]] = [arr[i], arr[arr.length - 1 - i]];

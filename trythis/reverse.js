@@ -16,3 +16,7 @@ console.log("🚀 makeReverseArray", makeReverseArray(a11));
 console.log("🚀 a11", a11);
 console.log("리버스 함수 활용", a11.reverse());
 console.log("🚀 a11", a11);
+
+
+const makeReverseArray1 = (arr) => arr.map((a, i) => arr[arr.length - 1 - i])
+

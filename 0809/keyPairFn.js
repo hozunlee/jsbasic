@@ -28,6 +28,30 @@ const keyPair2 = (arr, n) => {
 console.log(keyPair2([1, 4, 45, 6, 10, 8], 16)); // [3, 4]
 console.log(keyPair2([1, 2, 4, 3, 6], 10)); // [2, 4]
 console.log(keyPair2([1, 2, 3, 4, 5], 9)); // [3, 4]
-return;
 
-// keyFair는 반복문을 한 번 사용하는데 실패했습니다 ^^;;
+const keyPair3 = (arr, n) => {
+    //n = 9
+    // index : 0, 1, 2, 3, 4
+    // value : 1, 2, 3, 4, 5
+    // diff : 8, 7, 6, 5, 4 // 필요한 값
+    // diffI : {8:0, 7:1, 6:2, 5:3, 4:4}
+
+    const diffIdx = {};
+
+    for (let i = 0; i < arr.length; i += 1) {
+        const val = arr[i];
+        const diff = n - val;
+        // if ( diffIdx[val] !== undefined){
+        // if ( diffIdx[val] || diffIdx[val] === 0){
+        if (diffIdx.hasOwnProperty(val)) {
+            return [diffIdx[val], i];
+        } else {
+            diffIdx[diff] = i;
+        }
+    }
+};
+
+console.log(keyPair3([1, 4, 45, 6, 10, 8], 16)); // [3, 4]
+console.log(keyPair2([1, 2, 4, 3, 6], 10)); // [2, 4]
+console.log(keyPair2([1, 2, 3, 4, 5], 9)); // [3, 4]
+return;

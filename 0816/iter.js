@@ -5,8 +5,56 @@ class StackNQueue {
         this._arr = _arr;
     }
 
-    [Symbol.iterator]() {
-        return this._arr.values();
+    // #1
+    // [Symbol.iterator]() {
+    //     // Symbol 이 붙은 이유는 중복을 막기 위해서
+    //     return this._arr.values();
+    // }
+
+    get peek() {
+        return this._arr[0];
+    }
+
+    get length() {
+        return this._arr.length;
+    }
+
+    get isEmpty() {
+        return !this._arr.length;
+    }
+
+    // #2
+    // [Symbol.iterator]() {
+    //     let idx = -1;
+    //     // let done = false;
+    //     return {
+    //         next: () => {
+    //             idx += 1;
+    //             // done ||= idx > this._arr.length; // done = done || this._arr.length; 같은거
+    //             // return { value: this._arr[idx], done };
+
+    //             return { value: this._arr[idx], done: !this._arr[idx] };
+    //         },
+    //     };
+    // }
+
+    // #3 제너레이터로
+
+    // *[Symbol.iterator]() {
+    //     for (let i = 0; i < this._arr.length; i += 1) {
+    //         yield this._arr[i];
+    //     }
+    // }
+
+    *[Symbol.iterator]() {
+        for (const k of this._arr) {
+            yield k;
+        }
+    }
+
+    iterator() {
+        // 관례적으로 이터레이터 함수를 만듬
+        return this[Symbol.iterator]();
     }
 
     print() {
@@ -24,17 +72,6 @@ class StackNQueue {
     }
     toArray() {
         return [...this._arr];
-    }
-    get peek() {
-        return this._arr[0];
-    }
-
-    get length() {
-        return this._arr.length;
-    }
-
-    get isEmpty() {
-        return !this._arr.length;
     }
 }
 
@@ -93,19 +130,35 @@ class Queue extends StackNQueue {
 
 const queue = new Queue([1, 2]);
 queue.enqueue(1); // 추가하기
-console.log("삭제", queue.dequeue()); // 추가한지 가장 오래된 - 먼저 들어간 - 하나 꺼내기
-queue.print();
+// console.log("삭제", queue.dequeue()); // 추가한지 가장 오래된 - 먼저 들어간 - 하나 꺼내기
+// queue.print();
 
-console.log(queue.peek);
+// console.log(queue.peek);
 
-queue.enqueue(1); // 추가하기
-queue.print();
+// queue.enqueue(1); // 추가하기
+// queue.print();
 
-const arr2 = queue.toArray().map((a) => console.log("map", a));
+// const arr2 = queue.toArray().map((a) => console.log("map", a));
 
 console.log("------------------------------");
 
-stack.push(5);
-console.log([...stack], [...queue]);
-for (const s of stack) console.log(s);
+// stack.push(5);
+// console.log([...stack], [...queue]);
+// for (const s of stack) console.log(s);
 for (const q of queue) console.log(q);
+
+queue.enqueue(3);
+const itQueue = queue.iterator();
+
+console.log(itQueue.next());
+console.log(itQueue.next());
+console.log(itQueue.next());
+console.log(itQueue.next());
+console.log(itQueue.next());
+
+// static 변수로 listToArray를 만듬
+
+//ArrayList.listToArray({ value: 1, rest: { value: 2 } }) ⇒ [1,2]
+//ArrayList.arrayToList([1,2]) ⇒ { value: 1, rest: { value: 2 } }
+
+class ArrayList extends Collection {}

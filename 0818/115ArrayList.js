@@ -2,7 +2,11 @@ class StackNQueue {
     // #arr;
     _arr; // protected 처럼 쓰임
     constructor(arr = []) {
+        // if (this.constructor.name === "ArrayList") {
+        //     this._arr = ArrayList.listToArray(arr);
+        // } else {
         this._arr = arr;
+        // }
     }
 
     get peek() {
@@ -48,12 +52,17 @@ class StackNQueue {
 //ArrayList.arrayToList([1,2]) ⇒ { value: 1, rest: { value: 2 } }
 
 class ArrayList extends StackNQueue {
+    // arr;
+    // constructor(arr) {
+    //     super();
+    //     this.arr = ArrayList.listToArray(arr);
+    // }
     static listToArray = ((_obj) => {
         const arr = [];
         return function req(_obj) {
             for (const k in _obj) {
                 if (typeof _obj[k] === "object") {
-                    const a = req(_obj[k]);
+                    req(_obj[k]);
                 } else {
                     arr.push(_obj[k]);
                 }
@@ -61,6 +70,23 @@ class ArrayList extends StackNQueue {
             return arr;
         };
     })();
+
+    static arrayToList = (_arr) => {
+        const obj = {};
+        for (const k of _arr) {
+            if (!obj.value) {
+                obj.value = k;
+            } else {
+                obj.rest = { value: k };
+            }
+        }
+        return obj;
+    };
+
+    // 마지막 인덱스 의 밸류 객체에 안에 {rest: {value : number}}
+    add(value) {
+        // this._arr.rest.value.rest.value = value;
+    }
 }
 
 const alist = new ArrayList({ value: 1, rest: { value: 2 } });
@@ -73,8 +99,10 @@ console.log(
     })
 );
 
-console.log("alist :>> ", alist);
+console.log("ArrayList.arrayToList(1,2) :>> ", ArrayList.arrayToList([1, 2]));
+
 return;
+console.log("alist :>> ", alist);
 alist.add(3); // { value: 1, rest: { value: 2, rest: { value: 3 } } }
 alist.remove(2); // { value: 1, rest: { value: 3 } }
 alist.add(22, 1); // { value: 1, rest: { value: 22, rest: { value: 3 } } }

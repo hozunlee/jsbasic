@@ -3,9 +3,12 @@ const $btn2 = document.getElementById("btn2");
 const $text1 = document.getElementById("text1");
 const $text2 = document.getElementById("text2");
 
+const hong = { id: 1, name: "Hong", dept: 1 };
+const kim = { id: 2, name: "Kim", dept: 2 };
+
 const WEEKS = ["일", "월", "화", "수", "목", "금", "토"];
 
-const getNextWeek = ((a) => {
+const getNextWeek = (() => {
     console.log(a);
     let widx = {};
     return function (id) {
@@ -40,7 +43,7 @@ let week = getNextWeek();
 
 function handleToDoClick(event) {
     if (event.srcElement.id === "btn1") {
-        getNextWeeks1($text1); //2
+        getNextWeek($text1); //2
         // $text1.innerText = getNextWeeks1(event.srcElement.id); //4
         console.log(btn1.innerText); //dom 사용
         console.log(event.srcElement.id);

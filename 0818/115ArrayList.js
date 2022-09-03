@@ -71,19 +71,31 @@ class ArrayList extends StackNQueue {
         };
     })();
 
-    static arrayToList = (_arr) => {
+    static arrayToList = (() => {
         const obj = {};
-        for (const k of _arr) {
-            if (!obj.value) {
-                obj.value = k;
-            } else {
-                obj.rest = { value: k };
+        return function (_arr) {
+            for (const k of _arr) {
+                function req(value) {
+                    if (!obj.value) {
+                        obj.value = k;
+                    }
+                    // } else if (typeof obj.rest === "object") {
+                    //     obj.rest =
+                    // }
+                }
             }
-        }
-        return obj;
-    };
+            return obj;
+        };
 
-    // 마지막 인덱스 의 밸류 객체에 안에 {rest: {value : number}}
+        // if (!obj.value) {
+        //     obj.value = k;
+        //     obj.rest = {};
+        // } else {
+
+        // }
+    })();
+
+    // 의 밸류 객체에 안에 {rest: {value : number}}
     add(value) {
         // this._arr.rest.value.rest.value = value;
     }

@@ -72,6 +72,9 @@ console.log("🚀 ~ file: velogClass2.js ~ line 35 ~ stack", stack);
 const queue = new Queue([5, 4]);
 console.log("🚀 ~ file: velogClass2.js ~ line 37 ~ queue", queue);
 
+console.log(stack.toString());
+return;
+
 console.log("peek ====> ", stack.peek, queue.peek); // 마지막(다음에 나올) 원소
 stack.print(); // 출력해보기
 queue.print(); // 출력해보기

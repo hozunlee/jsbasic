@@ -30,7 +30,7 @@ class StackNQueue {
     //     return {
     //         next: () => {
     //             idx += 1;
-    //             // done ||= idx > this._arr.length; // done = done || this._arr.length; 같은거
+    //             // done ||= idx > this._arr.length; // done = done || idx >= this._arr.length; 같은거
     //             // return { value: this._arr[idx], done };
 
     //             return { value: this._arr[idx], done: !this._arr[idx] };

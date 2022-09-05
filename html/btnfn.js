@@ -9,7 +9,6 @@ const kim = { id: 2, name: "Kim", dept: 2 };
 const WEEKS = ["일", "월", "화", "수", "목", "금", "토"];
 
 const getNextWeek = (() => {
-    console.log(a);
     let widx = {};
     return function (id) {
         console.log(widx);
@@ -25,18 +24,6 @@ const getNextWeek = (() => {
 })();
 // 순수함수를 짜기 위한 클로저 생성
 
-const getNextWeeks1 = (() => {
-    return ($sp) => {
-        const curr = $sp.innerText.trim().replace("요일", "");
-        console.log(curr);
-        let currIdx = WEEKS.indexOf(curr);
-        console.log(currIdx);
-        currIdx += 1;
-        if (currIdx >= WEEKS.length) currIdx = 0;
-        $sp.innerText = `${WEEKS[currIdx]}요일`;
-    };
-})();
-
 // 5번 caller 함수 짜보기
 
 let week = getNextWeek();
@@ -44,7 +31,7 @@ let week = getNextWeek();
 function handleToDoClick(event) {
     if (event.srcElement.id === "btn1") {
         getNextWeek($text1); //2
-        // $text1.innerText = getNextWeeks1(event.srcElement.id); //4
+        $text1.innerText = getNextWeek(event.srcElement.id); //4
         console.log(btn1.innerText); //dom 사용
         console.log(event.srcElement.id);
     } else if (event.srcElement.id === "btn2") {
@@ -60,6 +47,18 @@ $btn2.addEventListener("click", handleToDoClick);
 //TODO 함수에 접속 할 때 다른 렉시컬환경을 만들자
 
 // 클로저를 사용할 이유가 있을까?
+
+const getNextWeeks1 = (() => {
+    return ($sp) => {
+        const curr = $sp.innerText.trim().replace("요일", "");
+        console.log(curr);
+        let currIdx = WEEKS.indexOf(curr);
+        console.log(currIdx);
+        currIdx += 1;
+        if (currIdx >= WEEKS.length) currIdx = 0;
+        $sp.innerText = `${WEEKS[currIdx]}요일`;
+    };
+})();
 
 const getNextWeek2 = (subject) => {
     if (subject === "국어") {

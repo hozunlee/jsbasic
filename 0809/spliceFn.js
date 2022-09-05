@@ -33,5 +33,5 @@ const splice2 = (arr, idx, delCnt = arr.length - 1, ...add) => [
     ...arr.slice(idx + delCnt),
 ];
 
-const a11 = splice2(arr, 1, 3); // a1 = [1, 5]
+const a11 = splice2([1, 2, 3, 4, 5], 1, 3); // a1 = [1, 5]
 console.log("a11 :>> ", a11);

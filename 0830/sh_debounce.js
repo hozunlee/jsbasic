@@ -1,5 +1,3 @@
-const rand = (s, e) => console.log(s + Math.floor((e - s + 1) * Math.random()));
-
 const debounce = (cb, delay) => {
     let timer;
     return (...args) => {
@@ -7,6 +5,9 @@ const debounce = (cb, delay) => {
         timer = setTimeout(cb, delay, ...args); // cb(...args) ⇒ cb(100)
     };
 };
+
+const rand = (s, e) => console.log(s + Math.floor((e - s + 1) * Math.random()));
+const dbnc = debounce(rand, 1000);
 
 const throttle = (cb, delay) => {
     let timer;
@@ -18,16 +19,14 @@ const throttle = (cb, delay) => {
         }, delay);
     };
 };
-
-const dbnc = debounce(rand, 1000);
-const th = throttle(rand, 1000);
+// const th = throttle(rand, 500);
 
 let cnt = 0;
 const intl = setInterval(() => {
     dbnc(1, 10);
-    th(100, 200);
+    // th(100, 200);
     cnt += 1;
-    if (cnt === 20) {
+    if (cnt === 30) {
         clearInterval(intl);
     }
 }, 100);

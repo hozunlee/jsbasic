@@ -2,7 +2,7 @@
 
 const deepCopyObject = (arrObj) => {
     let copy = Array.isArray(arrObj) ? [] : {};
-    for (k in arrObj) {
+    for (let k in arrObj) {
         const tempObj = arrObj[k];
         console.log(typeof arrObj[k]);
         if (typeof tempObj === "object") {
@@ -14,4 +14,4 @@ const deepCopyObject = (arrObj) => {
     return copy;
 };
 
-export { deepCopyObject };
+export { deepCopyObject as deepCopy };

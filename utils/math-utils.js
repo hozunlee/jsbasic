@@ -1,6 +1,6 @@
 // rand
 const rand = (start, end) => {
-    return Math.floor(Math.random() * (end - start) + start);
+    return console.log(Math.floor(Math.random() * (end - start) + start));
 };
 
 export { rand };

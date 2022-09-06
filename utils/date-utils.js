@@ -1,3 +1,4 @@
+import moment from "moment";
 // WEEKS, calendar(),
 
 const WEEKS = ["일", "월", "화", "수", "목", "금", "토"];
@@ -17,8 +18,6 @@ const getNextWeek = (() => {
     };
 })();
 
-const moment = require("moment");
-
 const calendar = (nDay) => {
     const date = moment(nDay); // 해당날짜정보
     console.log(date.format("YYYY-MM"));
@@ -27,7 +26,7 @@ const calendar = (nDay) => {
 
     let weekCount = monthStartDate;
 
-    thisCal = [` 일 월 화 수 목 금 토 ` + "\n"];
+    let thisCal = [` 일 월 화 수 목 금 토 ` + "\n"];
     console.log("typeof monthStartDate :>> ", typeof monthStartDate);
     for (let i = 0; i < monthStartDate; i += 1) {
         thisCal += "   ";

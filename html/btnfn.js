@@ -1,3 +1,5 @@
+import { debounce, throttle } from "../utils/timer-utils";
+
 const $btn1 = document.getElementById("btn1");
 const $btn2 = document.getElementById("btn2");
 const $text1 = document.getElementById("text1");
@@ -26,8 +28,6 @@ const getNextWeek = (() => {
 
 // 5번 caller 함수 짜보기
 
-let week = getNextWeek();
-
 function handleToDoClick(event) {
     if (event.srcElement.id === "btn1") {
         getNextWeek($text1); //2
@@ -39,10 +39,17 @@ function handleToDoClick(event) {
     }
 }
 
-window.addEventListener("load", () => {});
+const thrt = throttle(() => ($text2.innerText = getNextWeek()), 500);
 
-$btn1.addEventListener("click", handleToDoClick);
-$btn2.addEventListener("click", handleToDoClick);
+// window.addEventListener("load", () => {});
+
+//기존코드
+// $btn1.addEventListener("click", handleToDoClick);
+// $btn2.addEventListener("click", handleToDoClick);
+
+$btn2.addEventListener("click", () => {
+    thrt();
+});
 
 //TODO 함수에 접속 할 때 다른 렉시컬환경을 만들자
 

@@ -7,17 +7,30 @@ const p = new Promise((resolve, reject) => {
 });
 
 console.log("111>>", p);
+p.then((res) => console.log(res));
 setTimeout(() => console.log("222>>", p), 2000);
 
 function Promise(cb) {
-    const resolve = () => {
-        console.log("RESOLVE!!👍🏽");
-        this.state = "resolve";
+    Promise.prototype.then = (tcb) => {
+        Promise.prototype.thenFn = tcb;
+        return this;
     };
 
-    const reject = () => {
-        console.log("REJECT!!👎🏽");
+    Promise.prototype.catch = (ccb) => {
+        Promise.prototype.catchFn = ccb;
+        return this;
+    };
+
+    const resolve = (succ) => {
+        console.log("RESOLVE!!👍🏽", succ);
+        this.state = "resolve";
+        this.thenFn(succ);
+    };
+
+    const reject = (error) => {
+        console.log("REJECT!!👎🏽", error);
         this.state = "reject";
+        // this.catchFn(error);
     };
 
     cb(resolve, reject);

@@ -23,14 +23,14 @@ class Subway {
     }
 }
 
-const routes = new Subway("문래", "신림");
+const routes = new Subway("신도림", "신도림");
 const it1 = routes[Symbol.iterator]();
 console.log([...routes]); // [ '문래', '대림', '구로디지털단지', '신대방', '신림' ]
 console.log(it1.next()); // { value: '문래', done: false }
+console.log(it1.next()); // { value: '대림', done: false }
+console.log(it1.next()); // { value: '구로디지털단지', done: false }
+console.log(it1.next()); // { value: '신대방', done: false }
 console.log(it1.next()); // { value: '신림', done: false }
-console.log(it1.next()); // { value: undefined, done: true }
-console.log(it1.next()); // { value: undefined, done: true }
-console.log(it1.next()); // { value: undefined, done: true }
 console.log(it1.next()); // { value: undefined, done: true }
 
 const routes2 = new Subway("구로디지털단지", "성수");

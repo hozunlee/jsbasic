@@ -57,43 +57,53 @@ class Subway {
     }
 
     // [Symbol.iterator]() {
-    //     let startIdx = sub2.indexOf(this.start);
-    //     let endIdx = sub2.indexOf(this.end) + 1;
-    //     return sub2.slice(startIdx, endIdx).values();
+    //     let startIdx = LINE2.indexOf(this.start);
+    //     let endIdx = LINE2.indexOf(this.end) + 1;
+    //     return LINE2.slice(startIdx, endIdx).values();
     // }
-
-    [Symbol.iterator]() {
-        let idx = LINE2.indexOf(this.start);
-        let endIdx = LINE2.indexOf(this.end); // 쓰지말고!
-        return {
-            next() {
-                idx = idx % LINE2.length;
-                // return { value: LINE2[idx++], done: idx -1 === endIdx  };
-                console.log(idx);
-                return { value: LINE2[idx++], done: idx - 1 === endIdx };
-            },
-        };
+    *[Symbol.iterator]() {
+        let idx = LINE2.indexOf(this.start) - 1;
+        let done = false;
+        while (!done) {
+            idx = idx === LINE2.length - 1 ? 0 : idx + 1;
+            done = done || LINE2[idx - 1] === this.end;
+            yield LINE2[idx];
+        }
     }
+
+    // [Symbol.iterator]() {
+    //     let idx = LINE2.indexOf(this.start);
+    //     let endIdx = LINE2.indexOf(this.end); // 쓰지말고!
+    //     return {
+    //         next() {
+    //             idx = idx % LINE2.length;
+    //             // return { value: LINE2[idx++], done: idx -1 === endIdx  };
+    //             console.log(idx);
+    //             return { value: LINE2[idx++], done: idx - 1 === endIdx };
+    //         },
+    //     };
+    // }
 }
 
 const routes = new Subway("문래", "신림");
 
 const it1 = routes[Symbol.iterator]();
+console.log([...routes]); // [ '문래', '대림', '구로디지털단지', '신대방', '신림' ]
 console.log(it1.next()); // { value: '문래', done: false }
+console.log(it1.next()); // { value: '대림', done: false }
+console.log(it1.next()); // { value: '구로디지털단지', done: false }
+console.log(it1.next()); // { value: '신대방', done: false }
 console.log(it1.next()); // { value: '신림', done: false }
 console.log(it1.next()); // { value: undefined, done: true }
-console.log(it1.next()); // { value: undefined, done: true }
-console.log(it1.next()); // { value: undefined, done: true }
-console.log(it1.next()); // { value: undefined, done: true }
 
-console.log([...routes]); // [ '문래', '대림', '구로디지털단지', '신대방', '신림' ]
-return;
+console.log("routes1 ==>", [...routes]); // [ '문래', '대림', '구로디지털단지', '신대방', '신림' ]
+
 for (const d of routes) console.log(d);
 
 // console.log([...routes]); // 문래, 신도림, 구로디지탈, 신대방, 신림
 console.log("-----------------------------");
 const routes2 = new Subway("구로디지털단지", "성수");
-console.log([...routes2]); // ['구로디지털단지', '신대방', ..., '성수']
+console.log("routes2 ==>", [...routes2]); // ['구로디지털단지', '신대방', ..., '성수']
 const it2 = routes2[Symbol.iterator]();
 while (true) {
     const x = it2.next();

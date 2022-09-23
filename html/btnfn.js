@@ -1,4 +1,4 @@
-import { debounce, throttle } from "../utils/timer-utils";
+import { debounce, throttle } from "../utils/timer-utils.js";
 
 const $btn1 = document.getElementById("btn1");
 const $btn2 = document.getElementById("btn2");

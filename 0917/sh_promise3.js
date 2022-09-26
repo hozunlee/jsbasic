@@ -1,4 +1,4 @@
-const p = new Promise((resolve, reject) => {
+const p = new myPromise((resolve, reject) => {
     setTimeout(() => {
         const now = Date.now();
         if (now % 2 === 0) resolve(console.log("fulfill", now));
@@ -8,16 +8,17 @@ const p = new Promise((resolve, reject) => {
 
 console.log("111>>", p);
 p.then((res) => console.log(res));
+p.catch((err) => console.log("이것이에러", err));
 setTimeout(() => console.log("222>>", p), 2000);
 
-function Promise(cb) {
-    Promise.prototype.then = (tcb) => {
-        Promise.prototype.thenFn = tcb;
+function myPromise(cb) {
+    myPromise.prototype.then = (tcb) => {
+        myPromise.prototype.thenFn = tcb;
         return this;
     };
 
-    Promise.prototype.catch = (ccb) => {
-        Promise.prototype.catchFn = ccb;
+    myPromise.prototype.catch = (ccb) => {
+        myPromise.prototype.catchFn = ccb;
         return this;
     };
 
@@ -30,7 +31,7 @@ function Promise(cb) {
     const reject = (error) => {
         console.log("REJECT!!👎🏽", error);
         this.state = "reject";
-        // this.catchFn(error);
+        this.catchFn(error);
     };
 
     cb(resolve, reject);

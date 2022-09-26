@@ -56,14 +56,11 @@
 // TODO
 const arr = [];
 const randTime = (val) => {
-    return new Promise((resolve, reject) => {
-        const num = Math.floor(Math.random() * 1000);
+    return new Promise((resolve) => {
+        const num = Math.random() * 1000;
         console.log("val num :>> ", val, num);
-        let copy = {};
-        arr.push();
-        console.log(arr);
-        if (arr.length >= 5) arr.sort((a, b) => a - b);
-        resolve();
+        arr.push(num);
+        resolve(val);
     });
 };
 

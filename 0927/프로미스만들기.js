@@ -16,12 +16,18 @@ const p = new myPromise((resolve, reject) => {
 
 function myPromise(cb) {
     let value;
-
     const thenCallBackArr = [];
+
     myPromise.prototype.then = (tcb) => {
-        if (typeof tcb === "function") thenCallBackArr.push(tcb);
+        if (typeof tcb === "function") {
+            thenCallBackArr.push(tcb);
+
+            // myPromise.prototype.thenFn = thenCallBackArr.shift();
+        }
+
+        // console.log("this.state :>> ", this.state);
         // if (typeof tcb === "function") myPromise.prototype.thenFn = tcb;
-        console.log("object :>> ", thenCallBackArr);
+        // console.log("object :>> ", thenCallBackArr); // array 담기는 것 확인
         return this;
     };
 
@@ -35,10 +41,29 @@ function myPromise(cb) {
         return this;
     };
 
+    myPromise.prototype.finally = (fcb) => {
+        myPromise.prototype.finallyFn = fcb;
+    };
+
     const resolve = (succ) => {
         console.log("RESOLVE!!👍🏽", succ);
         this.state = "resolve";
-        this.thenFn(succ);
+        value = succ;
+
+        thenCallBackArr.forEach((cb) => {
+            myPromise.prototype.thenFn = cb;
+            if (value instanceof Promise) {
+                console.log("여기서 프로미스 다시 처리");
+                value.then((res) => (value = this.thenFn(res)));
+                // const temp = new myPromise((resolve) => {
+                //     return resolve(value);
+                // });
+                // console.log("temp :>> ", temp);
+                // value = this.thenFn(value);
+            } else {
+                value = this.thenFn(value);
+            }
+        });
     };
 
     const reject = (error) => {
@@ -62,12 +87,12 @@ p.then((res) => {
     console.log("p.then.res11>>>", res);
     return randTime(1);
 })
-    .then((res) => console.log(res))
+    .then((res) => {
+        console.log("p.then.res22>>>", res);
+        return "FiNALLY";
+    })
     .then(console.log("p.then.res33!!!"));
-// .then((res) => {
-//     console.log("p.then.res22>>>", res);
-//     return "FiNALLY";
-// })
+
 // .catch((err) => console.error("err-11>>", err))
 // .catch((err) => console.error("err-22>>", err))
 // .then((res) => res || "TTT")

@@ -7,30 +7,30 @@ const randTime = (val) =>
         setTimeout(resolve, delay, val);
     });
 
-// //
-// const promiseAll = (arr) => {
-//     //error 체크
-//     if (!arr.length) return Promise.reject("No");
-//     const resArr = [];
-//     return new Promise((resolve, reject) => {
-//         let pending = 0; // 변하는 변수값이면 ing를 준다.
-//         for (const k of arr) {
-//             let key = arr.indexOf(k);
-//             k.then((res) => {
-//                 resArr[key] = res;
-//                 pending += 1;
-//                 // resArr.push(res);
+//
+const promiseAll = (arr) => {
+    //error 체크
+    if (!arr.length) return Promise.reject("No");
+    const resArr = [];
+    return new HjPromise((resolve, reject) => {
+        let pending = 0; // 변하는 변수값이면 ing를 준다.
+        for (const k of arr) {
+            let key = arr.indexOf(k);
+            k.then((res) => {
+                resArr[key] = res;
+                pending += 1;
+                // resArr.push(res);
 
-//                 if (pending === arr.length) {
-//                     //if (arr.length === resArr) 로 비교했더니 empty
-//                     //TODO index 2가 들어오면 0 1 이 그냥 empty로 출력됨! 수정필요
+                if (pending === arr.length) {
+                    //if (arr.length === resArr) 로 비교했더니 empty
+                    //TODO index 2가 들어오면 0 1 이 그냥 empty로 출력됨! 수정필요
 
-//                     resolve(resArr);
-//                 }
-//                 // resArr.push(res);
-//             }).catch(reject);
-//         }
-//     });
+                    resolve(resArr);
+                }
+                // resArr.push(res);
+            }).catch(reject);
+        }
+    });
 // };
 
 const promiseAll = (arr) => {

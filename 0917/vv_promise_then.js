@@ -15,49 +15,43 @@ const p = new HjPromise((resolve, reject) => {
 
 //생성자 함수
 function HjPromise(cb) {
-    this.onFulfilledCallback = null;
-    this.onRejectedCallback = null;
+    let onFulfilledCallback = null;
+    let value;
 
     HjPromise.prototype.then = (tcb) => {
         HjPromise.prototype.thenFn = tcb;
-        return new Promise((resolve, reject) => {
-            if (this.state === "<pending>") {
-                this.onFulfilledCallback = () => {
-                    const result = this.thenFn(this.value);
-                    resolve(result);
-                };
-            }
-            if (this.state === "<fulfilled>") {
-                HjPromise.prototype.thenFn = tcb;
-            } else if (HjPromise.prototype.finallyFn) {
-                resolve(this.finallyFn());
-            }
+        return new Hj   Promise((resolve) => {
+            onFulfilledCallback = () => {
+                const result = this.thenFn(value);
+                resolve(result);
+            };
         });
-    };
-
-    HjPromise.prototype.then1 = (tcb) => {
-        HjPromise.prototype.thenFn = tcb;
-
-        return this;
     };
 
     HjPromise.prototype.catch = (ccb) => {
         HjPromise.prototype.catchFn = ccb;
-        return this;
+        return new Promise((resolve) => {
+            if (this.state === "<pending>") {
+                onRejectedCallback = () => {
+                    const result = this.catchFn(value);
+                    resolve(result);
+                };
+            }
+        });
     };
 
     HjPromise.prototype.finally = (fcb) => {
         HjPromise.prototype.finallyFn = fcb;
-        return this;
     };
 
     // callback을 위한 메서드 생성
     const resolve = (res) => {
         console.log("성공===>", res);
         this.state = "<fulfilled>";
-        this.value = res;
-        if (this.onFulfilledCallback !== null) {
-            this.onFulfilledCallback(res);
+        value = res;
+        console.log("onFulfilledCallback :>> ", onFulfilledCallback);
+        if (onFulfilledCallback !== null) {
+            onFulfilledCallback(res);
         }
         if (HjPromise.prototype.finallyFn) {
             this.finallyFn();
@@ -67,8 +61,11 @@ function HjPromise(cb) {
     const reject = (error) => {
         console.log("실패===>", error);
         this.state = "<reject>";
-        this.catchFn(error);
+        value = error;
 
+        if (HjPromise.prototype.catchFn) {
+            this.catchFn(error);
+        }
         if (HjPromise.prototype.finallyFn) {
             this.finallyFn();
         }
@@ -85,21 +82,19 @@ function HjPromise(cb) {
 console.log("111>>", p);
 setTimeout(() => console.log("222>>", p), 2000);
 
-console.log("ppppppppp>>>>>", p);
+// p.catch((err) => console.error("err-11>>", err));
 p.then((res) => {
     console.log("p.then.res11>>>", res);
     return randTime(1);
-})
-    .then((res) => {
-        console.log("p.then.res22>>>", res);
-        return "FiNALLY";
-    })
-    .then((res) => {
-        console.log("res333", res);
-    })
-    .then(console.log("p.then.res33!!!"))
-    .finally(() => console.log("finally-11"))
-    .finally(() => console.log("finally-22"));
-// .catch((err) => console.error("err-11>>", err));
-// .catch((err) => console.error("err-22>>", err))
-// .then((res) => res || "TTT")
+});
+
+// .then((res) => {
+//     console.log("p.then.res22>>>", res);
+//     return "FiNALLY";
+// });
+// .then(console.log("p.then.res33!!!"));
+//     .catch((err) => console.error("err-22>>", err))
+//     .then((res) => console.log("마지막추가===>>>", res))
+//     .then((res) => res || "TTT")
+//     .finally(() => console.log("finally-11"))
+//     .finally(() => console.log("finally-22"));
